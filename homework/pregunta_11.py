@@ -1,7 +1,7 @@
 """
 Escriba el codigo que ejecute la accion solicitada en cada pregunta. Los
-datos requeridos se encuentran en los archivos `tbl0.tsv`, `tbl1.tsv` y 
-`tbl2.tsv`. En este laboratorio solo puede utilizar las funciones y 
+datos requeridos se encuentran en los archivos `tbl0.tsv`, `tbl1.tsv` y
+`tbl2.tsv`. En este laboratorio solo puede utilizar las funciones y
 librerias de pandas para resolver las preguntas.
 """
 
@@ -22,3 +22,19 @@ def pregunta_11():
     38   38      d,e
     39   39    a,d,f
     """
+
+    import pandas as pd
+
+    df1 = pd.read_csv("./files/input/tbl1.tsv", sep="\t", index_col=False)
+
+    resultado = (
+        df1.groupby("c0")["c4"].apply(lambda x: ",".join(sorted(x))).reset_index()
+    )
+
+    resultado.columns = ["c0", "c4"]
+
+    return resultado
+
+
+if __name__ == "__main__":
+    print(pregunta_11())

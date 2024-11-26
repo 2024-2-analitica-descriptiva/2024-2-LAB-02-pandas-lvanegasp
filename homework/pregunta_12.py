@@ -1,7 +1,7 @@
 """
 Escriba el codigo que ejecute la accion solicitada en cada pregunta. Los
-datos requeridos se encuentran en los archivos `tbl0.tsv`, `tbl1.tsv` y 
-`tbl2.tsv`. En este laboratorio solo puede utilizar las funciones y 
+datos requeridos se encuentran en los archivos `tbl0.tsv`, `tbl1.tsv` y
+`tbl2.tsv`. En este laboratorio solo puede utilizar las funciones y
 librerias de pandas para resolver las preguntas.
 """
 
@@ -22,3 +22,21 @@ def pregunta_12():
     38   38                    eee:0,fff:9,iii:2
     39   39                    ggg:3,hhh:8,jjj:5
     """
+
+    import pandas as pd
+
+    df2 = pd.read_csv("./files/input/tbl2.tsv", sep="\t", index_col=False)
+
+    df2["c5"] = df2["c5a"] + ":" + df2["c5b"].astype(str)
+
+    resultado = (
+        df2.groupby("c0")["c5"].apply(lambda x: ",".join(sorted(x))).reset_index()
+    )
+
+    resultado.columns = ["c0", "c5"]
+
+    return resultado
+
+
+if __name__ == "__main__":
+    print(pregunta_12())
